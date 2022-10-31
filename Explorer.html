@@ -614,19 +614,20 @@
                             var str = []
                             for (const keys in tag) {
                                 if (tag[keys].indexOf(',')) {
-                                    str.push('&nbsp;'+tag[keys]+'&nbsp;&nbsp;')
-                                    console.log(tag[keys]+' ');
+                                    str.push('&nbsp;' + tag[keys] + '&nbsp;&nbsp;')
+
                                 }
                             }
-                            console.log(str);
-                            let url = 'http://v.qq.com/txp/iframe/player.html?vid=' + object[key][arr[k]].url.slice(24, 35)
+
+                            let url = 'https://v.qq.com/txp/iframe/player.html?vid=' + object[key][arr[k]].url.slice(24, 35)
                             $(".post-prevnext").append(`<div class="video_box">
-                                <iframe src="${url}"
-                                frameborder="0"></iframe>
-                                <p><span>标题：</span>${title}</p>
-                                            <p><span>描述：</span>${caption}</p>
-                                            <p class='tag'><span>标签：</span>${str}</p>
-                                        </div>`)
+                                    <iframe 
+                                    frameborder="0" src="${url}"></iframe>
+                                    <p><span>标题：</span>${title}</p>
+                                    <p><span>描述：</span>${caption}</p>
+                                    <p class='tag'><span>标签：</span>${str}</p>
+                                    </div>`)
+
                         }
                     }
                 }
