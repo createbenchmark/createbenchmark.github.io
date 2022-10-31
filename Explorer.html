@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html -->
+<html lang="en" data-default-color-scheme="&quot;auto&quot;" data-user-color-scheme="light" class=" ">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+    <!-- <link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/img/favicon.png">
+  <link rel="icon" type="image/png" href="http://localhost:4000/img/favicon.png"> -->
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <meta name="theme-color" content="#2f4154">
+    <meta name="description" content="">
+    <meta name="author" content="Difei Gao">
+    <meta name="keywords" content="">
+    <title>Chinese Short Video Title Generation: New Dataset, Evaluation Metric and Algorithm</title>
+
+    <style class="anchorjs"></style>
+    <link rel="stylesheet" href="./index_files/bootstrap.min.css">
+
+
+    <link rel="stylesheet" href="./index_files/github-markdown.min.css">
+    <link rel="stylesheet" href="./index_files/hint.min.css">
+
+
+
+
+
+    <link rel="stylesheet" href="./index_files/github-gist.min.css">
+
+
+
+
+    <link rel="stylesheet" href="./index_files/jquery.fancybox.min.css">
+
+    <!-- ICON样式 -->
+    <link rel="stylesheet" href="./font_zbl37wtw0g/iconfont.css">
+
+
+    <!-- 主题依赖的图标库，不要自行修改 -->
+
+    <link rel="stylesheet" href="./index_files/font_1749284_ba1fz6golrf.css">
+
+
+
+    <link rel="stylesheet" href="./index_files/font_1736178_kmeydafke9r.css">
+
+
+    <link rel="stylesheet" href="./index_files/main.css">
+
+    <!-- 自定义样式保持在最底部 -->
+
+
+    <script id="fluid-configs">
+        var Fluid = window.Fluid || {};
+        var CONFIG = { "hostname": "example.com", "root": "/", "version": "1.8.7", "typing": { "enable": true, "typeSpeed": 70, "cursorChar": "_", "loop": false }, "anchorjs": { "enable": true, "element": "h1,h2,h3,h4,h5,h6", "placement": "right", "visible": "hover", "icon": "" }, "progressbar": { "enable": true, "height_px": 3, "color": "#29d", "options": { "showSpinner": false, "trickleSpeed": 100 } }, "copy_btn": true, "image_zoom": { "enable": true }, "toc": { "enable": true, "headingSelector": "h1,h2,h3,h4,h5,h6", "collapseDepth": 0 }, "lazyload": { "enable": true, "onlypost": false }, "web_analytics": { "enable": false, "baidu": null, "google": null, "gtag": null, "tencent": { "sid": null, "cid": null }, "woyaola": null, "cnzz": null, "leancloud": { "app_id": null, "app_key": null, "server_url": null } } };
+    </script>
+    <script src="./index_files/utils.js.下载"></script>
+    <script src="./index_files/color-schema.js.下载"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <meta name="generator" content="Hexo 5.4.0">
+</head>
+
+
+<body data-new-gr-c-s-check-loaded="14.997.0" data-gr-ext-installed="" class="">
+    <header style="height: 30vh;">
+        <nav id="navbar" class="navbar fixed-top navbar-expand-lg scrolling-navbar navbar-dark">
+            <div class="container">
+                <a class="navbar-brand"
+                    href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#navbar">&nbsp;<strong>CREATE</strong>&nbsp;</a>
+
+                <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <div class="animated-icon"><span></span><span></span><span></span></div>
+                </button>
+
+                <!-- Collapsible content -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto text-center">
+
+
+                        <li class="nav-item">
+                            <a href="./index.html" class="nav-link">
+                                <i class="iconfont icon-home-fill"></i>
+                                Overview
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html">
+                                <i class="far fa-arrow-alt-circle-down"></i> Download</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="https://arxiv.org/pdf/1908.02962.pdf">
+                                <i class="far fa-sticky-note"></i>
+                                Paper
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="./Explorer.html">
+                                <i class="far fa-sticky-note"></i>
+                                Explorer
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html">
+                                <i class="iconfont icon-user-fill"></i>
+                                Contact
+                            </a>
+                        </li>
+
+                        <li class="nav-item" id="color-toggle-btn">
+                            <a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark"
+                                    id="color-toggle-icon" data="dark"></i>&nbsp;</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="banner" id="banner" parallax="true"
+            style="background: url(&quot;./img/default.png&quot;) center center / cover no-repeat; transform: translate3d(0px, 0px, 0px);">
+            <div class="full-bg-img">
+                <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+                    <div class="page-header text-center fade-in-up">
+                        <span class="h2" id="subtitle"
+                            title="Chinese Short Video Title Generation: New Dataset, Evaluation Metric and Algorithm">Chinese
+                            Short Video Title Generation:
+                            New Dataset, Evaluation Metric and Algorithm&nbsp;</span><span
+                            class="typed-cursor h2 typed-cursor--blink">_</span><span
+                            class="typed-cursor h2 typed-cursor--blink">_</span><span
+                            class="typed-cursor h2 typed-cursor--blink">_</span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+
+
+        <div class="container-fluid nopadding-x">
+            <div class="row nomargin-x">
+                <div class="d-none d-lg-block col-lg-2"></div>
+                <div class="col-lg-8 nopadding-x-md">
+                    <div class="container nopadding-x-md" id="board-ctn">
+                        <div class="py-5" id="board">
+                            <article class="post-content mx-auto">
+                                <!-- SEO header -->
+                                <h1 style="display: none">Chinese Short Video Title Generation: New Dataset, Evaluation
+                                    Metric and Algorithm</h1>
+
+                                <div class="markdown-body">
+                                    <ul id="Tag"></ul>
+                                </div>
+                                <hr>
+                                <!-- <div class="search_box">
+                                    <ul class="search_list">
+                                    </ul>
+                                    <button class="btn" onclick="searchMovie()">search</button>
+                                </div> -->
+                                <div>
+                                    <!-- <div class="choose_title">
+                                        <p>已选分类：</p>
+                                    </div> -->
+                                    <div class="post-prevnext">
+                                        <!-- <div class="video_box">
+                                            <p><span>标题：</span></p>
+                                            <iframe src="http://v.qq.com/txp/iframe/player.html?vid=b3203uh89nr"
+                                                frameborder="0"></iframe>
+                                            <p>描述：</p>
+                                            <p>链接：</p>
+                                        </div> -->
+                                    </div>
+
+                                </div>
+
+
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn" style="padding-top: 0px;">
+                    <div id="toc" style="visibility: visible;">
+                        <!-- <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Contentxxx</p> -->
+                        <div class="toc-body" id="toc-body">
+                            <ol class="tocbot-list ">
+                                <li class="toc-list-item is-active-li"><a
+                                        href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Overview"
+                                        class="tocbot-link node-name--H2  tocbot-active-link">Overview</a></li>
+                                <li class="toc-list-item"><a
+                                        href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Statistics"
+                                        class="tocbot-link node-name--H2 ">Statistics</a></li>
+                                <li class="toc-list-item"><a
+                                        href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Annotations"
+                                        class="tocbot-link node-name--H2 ">Annotations</a></li>
+                                <li class="toc-list-item"><a
+                                        href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Evaluation"
+                                        class="tocbot-link node-name--H2 ">Evaluation</a></li>
+                                <li class="toc-list-item"><a
+                                        href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Citation"
+                                        class="tocbot-link node-name--H2 ">Citation</a></li>
+                                <li class="toc-list-item"><a
+                                        href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Contact"
+                                        class="tocbot-link node-name--H2 ">Contact</a></li>
+                            </ol>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Custom -->
+
+        <a id="scroll-top-button" href="#" role="button" style="bottom: -60px; right: 223.482px;">
+            <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+        </a>
+
+        <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+                        <button type="button" id="local-search-close" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <input type="text" id="local-search-input" class="form-control validate">
+                            <label data-error="x" data-success="v" for="local-search-input">keyword</label>
+                        </div>
+                        <div class="list-group" id="local-search-result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-center mt-5 py-3">
+        <div class="footer-content">
+            Built and maintained by Difei Gao
+        </div>
+
+    </footer>
+
+    <!-- SCRIPTS -->
+
+    <script src="./index_files/nprogress.min.js.下载"></script>
+    <link rel="stylesheet" href="./index_files/nprogress.min.css">
+
+    <script>
+        NProgress.configure({ "showSpinner": false, "trickleSpeed": 100 })
+        NProgress.start()
+        window.addEventListener('load', function () {
+            NProgress.done();
+        })
+    </script>
+
+
+    <script src="./index_files/jquery.min.js.下载"></script>
+    <script src="./index_files/bootstrap.min.js.下载"></script>
+    <script src="./index_files/debouncer.js.下载"></script>
+    <script src="./index_files/events.js.下载"></script>
+    <script src="./index_files/plugins.js.下载"></script>
+
+    <!-- Plugins -->
+
+
+    <script src="./index_files/lazyload.js.下载"></script>
+
+
+    <script src="./index_files/tocbot.min.js.下载"></script>
+
+    <!-- <script src="./CRIC_files/jquery.fancybox.min.js.下载"></script> -->
+
+    <script src="./index_files/anchor.min.js.下载"></script>
+
+    <script defer="" src="./index_files/clipboard.min.js.下载"></script>
+
+    <script src="./index_files/typed.min.js.下载"></script>
+    <script>
+            (function (window, document) {
+                var typing = Fluid.plugins.typing;
+                var title = document.getElementById('subtitle').title;
+
+                typing(title)
+
+            })(window, document);
+    </script>
+    <style type="text/css" data-typed-js-css="true">
+        .typed-cursor {
+            opacity: 1;
+        }
+
+        .typed-cursor.typed-cursor--blink {
+            animation: typedjsBlink 0.7s infinite;
+            -webkit-animation: typedjsBlink 0.7s infinite;
+            animation: typedjsBlink 0.7s infinite;
+        }
+
+        @keyframes typedjsBlink {
+            50% {
+                opacity: 0.0;
+            }
+        }
+
+        @-webkit-keyframes typedjsBlink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        #Tag .Tag {
+            display: inline-block;
+            min-width: 80px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #Tag .Tag:hover {
+            color: #fff !important;
+            border: 1px solid #409eff !important;
+            background-color: #409eff !important;
+        }
+
+        .search_box {
+            position: relative;
+        }
+
+        .search_box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search_box .search_list {
+            width: 80%;
+            min-height: 35px;
+            border: 1px solid #ccc;
+            margin: 0;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .search_box .search_list li {
+            display: inline-block;
+            height: 30px;
+            padding: 0 8px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            margin: 10px 10px 10px 0;
+        }
+
+        .search_box .search_list li .text {
+            display: inline-block;
+            height: 100%;
+            font-size: 14px;
+            line-height: 28px;
+            text-align: center;
+        }
+
+        .search_box .search_list li .icon {
+            display: inline-block;
+            width: 10px;
+            height: 100%;
+            font-size: 14px;
+            line-height: 28px;
+            text-align: center;
+            margin-left: 3px;
+        }
+
+        .search_box .search_list li .icon .icon-error-bold {
+            font-size: 12px;
+            font-weight: 900;
+            color: black;
+            cursor: pointer;
+        }
+
+        .search_box .btn {
+            width: 10%;
+            height: 35px;
+            background-color: #337ab7;
+            padding: 0;
+            margin-left: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .search_box .btn:hover {
+            background-color: #245580;
+        }
+
+        .post-prevnext {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 0;
+            text-align: center;
+            min-height: 100px;
+        }
+
+        .post-prevnext .video_box {
+            width: 45%;
+            margin-bottom: 30px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            padding-top: 10px;
+            /* height: 400px; */
+        }
+
+        .post-prevnext .video_box p {
+            width: 90%;
+            margin: 8px auto;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .post-prevnext .video_box p span {
+            font-weight: 800;
+        }
+
+        .post-prevnext .video_box iframe {
+            height: 400px;
+            width: 90%;
+        }
+    </style>
+    <!-- <style type="text/css" data-typed-js-css="true">
+        .typed-cursor {
+            opacity: 1;
+        }
+
+        .typed-cursor.typed-cursor--blink {
+            animation: typedjsBlink 0.7s infinite;
+            -webkit-animation: typedjsBlink 0.7s infinite;
+            animation: typedjsBlink 0.7s infinite;
+        }
+
+        @keyframes typedjsBlink {
+            50% {
+                opacity: 0.0;
+            }
+        }
+
+        @-webkit-keyframes typedjsBlink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style> -->
+    <!-- <style type="text/css" data-typed-js-css="true">
+        .typed-cursor {
+            opacity: 1;
+        }
+
+        .typed-cursor.typed-cursor--blink {
+            animation: typedjsBlink 0.7s infinite;
+            -webkit-animation: typedjsBlink 0.7s infinite;
+            animation: typedjsBlink 0.7s infinite;
+        }
+
+        @keyframes typedjsBlink {
+            50% {
+                opacity: 0.0;
+            }
+        }
+
+        @-webkit-keyframes typedjsBlink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style> -->
+    <script type="text/javascript">
+        // 定义函数
+        var search_last = []
+        var total = {}
+        function getJson(data) {
+            // data 就是要取的json数据
+            total = data
+            // console.log(total);
+            let keys = Object.keys(data)
+            for (let index = 0; index < keys.length; index++) {
+                $("#Tag").append(`<li class="Tag ${index}">${keys[index]}</li>`)
+                $(".Tag")[index].addEventListener("click", function () {
+                    searchArr(total, search_last, keys[index], index)
+                })
+            }
+            searchArr(total, search_last, keys[0], 0)
+        }
+    </script>
+
+    <script src="./index_files/local-search.js.下载"></script>
+    <script type="text/javascript">
+
+        // (function () {
+        //     var path = "/local-search.xml";
+        //     var inputArea = document.querySelector("#local-search-input");
+        //     inputArea.onclick = function () {
+        //         searchFunc(path, 'local-search-input', 'local-search-result');
+        //         this.onclick = null
+        //     }
+        //     var search_last = []
+        //     var total = {}
+        //     $.getJSON("demo.json", function (data) {
+        //         total = data
+        //         // console.log(total);
+        //         let keys = Object.keys(data)
+        //         for (let index = 0; index < keys.length; index++) {
+        //             $("#Tag").append(`<li class="Tag ${index}">${keys[index]}</li>`)
+        //             $(".Tag")[index].addEventListener("click", function () {
+        //                 searchArr(total, search_last, keys[index], index)
+        //             })
+        //         }
+        //     })
+        // })()
+        function searchArr(t_object, array, item, index) {
+            let a = array.indexOf(item)
+            let list = $("#Tag").find("li")
+            let choose = $("#Tag").find(`li.${index}`)
+            list.css({ "background-color": "#eee", "color": "black", "border": "1px solid #ccc" })
+            if (a != -1) {
+                array.splice(a, 1)
+                search_last = array
+            } else {
+                array = [item]
+                search_last = array
+                choose.css({ "background-color": "#409eff", "color": "#fff", "border": "1px solid #409eff" })
+            }
+            searchMovie(t_object)
+            // $(".search_list").empty();
+            // for (let i = 0; i < array.length; i++) {
+            //     $(".search_list").append(`<li class="list${i}"><span class="text">${array[i]}</span><span class="icon"><i class="iconfont icon-error-bold"><i></span></li>`)
+            //     $(".icon-error-bold")[i].addEventListener("click", function () {
+            //         let b = keys.indexOf(array[i])
+            //         let list2 = $("#Tag").find(`li.${b}`)
+            //         list2.css({ "background-color": "#eee", "color": "black", "border": "1px solid #ccc" })
+            //         array.splice(i, 1)
+            //         serach_last = array
+            //         $("li").remove(`.list${i}`);
+            //     })
+            // }
+        }
+        function searchMovie(object) {
+            $(".post-prevnext").empty();
+            let res = []
+            if (search_last.length == 0) {
+            } else {
+                let arr = [];
+                for (var i = 0; i < 10; i++) {
+                    getx(arr);
+                }
+                for (const key in object) {
+                    if (key == search_last[0]) {
+                        for (let k = 0; k < arr.length; k++) {
+                            let title = object[key][arr[k]].ann_title
+                            let caption = object[key][arr[k]].caption
+                            let tag = object[key][arr[k]].tag
+                            var str = []
+                            for (const keys in tag) {
+                                if (tag[keys].indexOf(',')) {
+                                    str.push('&nbsp;'+tag[keys]+'&nbsp;&nbsp;')
+                                    console.log(tag[keys]+' ');
+                                }
+                            }
+                            console.log(str);
+                            let url = 'http://v.qq.com/txp/iframe/player.html?vid=' + object[key][arr[k]].url.slice(24, 35)
+                            $(".post-prevnext").append(`<div class="video_box">
+                                <iframe src="${url}"
+                                frameborder="0"></iframe>
+                                <p><span>标题：</span>${title}</p>
+                                            <p><span>描述：</span>${caption}</p>
+                                            <p class='tag'><span>标签：</span>${str}</p>
+                                        </div>`)
+                        }
+                    }
+                }
+            }
+        }
+        // 随机获取10个数字
+        function getx(arr) {
+            for (let i = 0; i > -1; i++) {
+                let flag = true;
+                let num = Math.floor(Math.random() * 20);
+                for (let i in arr) {
+                    if (arr[i] == num) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag == true) {
+                    arr.push(num);
+                    return;
+                }
+            }
+        }
+    </script>
+
+    <!-- 主题的启动项 保持在最底部 -->
+    <script src="./index_files/boot.js.下载"></script>
+    <script src="./demo.json?callback=getJson"></script>
+
+</body>
+
+</html>
