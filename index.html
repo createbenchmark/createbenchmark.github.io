@@ -83,9 +83,9 @@
 
 
             <li class="nav-item">
-              <a class="nav-link" href="#Overview">
+              <a class="nav-link" href="#Dataset">
                 <i class="iconfont icon-home-fill"></i>
-                Overview
+                Dataset
               </a>
             </li>
 
@@ -95,7 +95,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" target="_blank" href="https://arxiv.org/pdf/1908.02962.pdf">
+              <a class="nav-link" target="_blank" href="https://arxiv.org/abs/2203.16763">
                 <i class="far fa-sticky-note"></i>
                 Paper
               </a>
@@ -133,8 +133,7 @@
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle"
-              title="Chinese Short Video Title Generation: New Dataset, Evaluation Metric and Algorithm">Chinese Short Video Title Generation:
-              New Dataset, Evaluation Metric and Algorithm&nbsp;</span><span
+              title="Chinese Title Generation for Short Videos: Dataset, Metric and Algorithm">Chinese Title Generation for Short Videos: Dataset, Metric and Algorithm&nbsp;</span><span
               class="typed-cursor h2 typed-cursor--blink">_</span><span
               class="typed-cursor h2 typed-cursor--blink">_</span><span
               class="typed-cursor h2 typed-cursor--blink">_</span>
@@ -160,138 +159,97 @@
                 <h1 style="display: none">Chinese Short Video Title Generation: New Dataset, Evaluation Metric and Algorithm</h1>
 
                 <div class="markdown-body">
-                  <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview<a
-                      class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#Overview"
+                  <h2 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset<a
+                      class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#Dataset"
                       style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
                   <p>
                     <img src="./img/overview.png" style="max-width: 100%;margin: 0rem auto;box-shadow: none;">
-                    <br>CRIC contains
-                    compositional questions to evaluate the ability of a model on alternatively inferring on vision and
-                    commonsense.
+                    <br>CREATE is the first large-scale Chinese shoRt vidEo retrievAl and Title gEneration dataset, to assist research and applications in video titling, video captioning, and video retrieval in Chinese. CREATE comprises a high-quality labeled 210K dataset and two web-scale 3M and 10M pre-training datasets, covering 51 categories, 50K+ tags, 537K+ manually annotated titles and captions, and 10M+ short videos with original video information.
                   </p>
-                  <h2 id="Statistics"><a href="#Statistics" class="headerlink" title="Statistics"></a>Statistics<a
+                  <h3 id="Statistics"><a href="#Statistics" class="headerlink" title="Statistics"></a>Statistics<a
                       class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#Statistics"
-                      style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+                      style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
                   <ul>
-                    <li>96K images from Visual Genome</li>
-                    <li>494K automatically generated questions</li>
-                    <li>3.4K collected knowledge items from ConceptNet and Wikipedia</li>
-                    <li>Rich additional annotations, e.g., question related scene graph &amp; knowledge graph, reasoning
-                      steps, etc.</li>
+                    <li>High-quality fine-labeled dataset CREATE-210K</li>
+                    <li>Web-scale weakly-labeled dataset CREATE3M/10M</li>
+                    <li>50K+ fine-grained tags</li>
+                    <li>537K annotated titles and captions</li>
+                    <li>51 categories such as Lifestyle, Pet, Fashion, Gourmet, etc</li>
                   </ul>
-                  <h2 id="Annotations"><a href="#Annotations" class="headerlink" title="Annotations"></a>Annotations<a
+                  <img src="./img/data_split.png" style="max-width: 50%;margin: 0rem auto;box-shadow: none;">
+                  <h3 id="Annotations"><a href="#Annotations" class="headerlink" title="Annotations"></a>Annotations<a
                       class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#Annotations"
-                      style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
-                  <ul>
-                    <li>
-                      <p>The <a target="_blank" rel="noopener" href=""><strong>question
-                            files</strong></a> (train_questions.json, val_questions.json, test_v1_questions.json)
-                        consist of a list of question items where each item’s structure is as follows:</p>
-                      <div class="code-wrapper">
-                        <pre><code class="hljs python">{
-    <span class="hljs-string">"sub_graph"</span>:  <span class="hljs-comment"># a dictionary for recording the sub-graph related to generating the question</span>
-        {
-            <span class="hljs-string">"relations"</span>:       <span class="hljs-built_in">list</span>,  <span class="hljs-comment"># a list for recording the relationships (from Visual Genome annotations) used for generating the question    </span>
-            <span class="hljs-string">"attributes"</span>:      <span class="hljs-built_in">list</span>,  <span class="hljs-comment"># a list for recording the attributes (from Visual Genome annotations) used for generating the question              </span>
-            <span class="hljs-string">"knowledge_items"</span>: <span class="hljs-built_in">list</span>,  <span class="hljs-comment"># a list for recording the knowledge items (from ConceptNet) for generating the question    </span>
-        },
-    <span class="hljs-string">"image_id"</span>:      <span class="hljs-built_in">int</span>,  <span class="hljs-comment"># an image id in Visual Genome dataset</span>
-    <span class="hljs-string">"question"</span>:      <span class="hljs-built_in">str</span>,
-    <span class="hljs-string">"question_id"</span>:   <span class="hljs-built_in">str</span>,
-    <span class="hljs-string">"question_type"</span>: <span class="hljs-built_in">str</span>,
-    <span class="hljs-string">"answer"</span>:        <span class="hljs-built_in">str</span>,
-    <span class="hljs-string">"target"</span>:        <span class="hljs-built_in">list</span>, <span class="hljs-comment"># a list of object ids indicating the ground-truth results of the gruonding</span>
-    <span class="hljs-string">"program"</span>:  <span class="hljs-comment"># a list representing the reasoning steps (function layout) of answering a question.</span>
-        [{<span class="hljs-string">"function"</span>:   <span class="hljs-built_in">str</span>,   <span class="hljs-comment"># a function name, e.g. "Find"</span>
-          <span class="hljs-string">"text_input"</span>: <span class="hljs-built_in">list</span>,  <span class="hljs-comment"># a text input of function, e.g. the text input ["car", "red"] for "Find" function, indicates finding the red car</span>
-          <span class="hljs-string">"output"</span>:     <span class="hljs-built_in">list</span>,  <span class="hljs-comment"># a list of object ids indicating the ground truth output of  the current function</span>
-          },
-         ...],
-    <span class="hljs-string">"wrong_part"</span>: <span class="hljs-built_in">str</span>,  <span class="hljs-comment"># a string for explaining the reason if the answer is "no"  </span>
-}</code><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button></pre>
-                      </div>
-                    </li>
-                    <li>
-                      <p>The scene graph of all images are stored in a JSON file <a target="_blank" rel="noopener"
-                          href=""><strong>scene_graphs.json</strong></a> (unzip
-                        “scene_graphs.zip” to get this file) containing relationship, attribute and object annotation.
-                        And the format is similar to the annotations in Visual Genome.</p>
-                    </li>
-                    <li>
-                      <p>The knowledge items are stored in <a target="_blank" rel="noopener"
-                          href=""><strong>knowledge_graph.json</strong></a>, where each item is represeted in
-                        triplet format, &lt;head, relation, tail&gt;.</p>
-                    </li>
-                    <li>
-                      <p>The object features are stored in two files, <a target="_blank" rel="noopener"
-                          href=""><strong>cric_objects.zip</strong></a>
-                        and <a target="_blank" rel="noopener" href="www.baidu.com"><strong>cric_objects.z01</strong></a>.
-                        Place these two files in one folder and unzip cric_objects.zip to get cric_objects.h5. The
-                        structure of cric_objects.h5 is: </p>
-                      <div class="code-wrapper">
-                        <pre><code class="hljs nim">cric_objects =
-{
-    <span class="hljs-string">"features"</span>:  <span class="hljs-built_in">float</span>, <span class="hljs-comment"># the faster r-cnn features (bottom-up features) of for up to 100 objects with ground truth bounding boxes. Size (number of images, 100, 2048).</span>
-    <span class="hljs-string">"object_id"</span>: <span class="hljs-built_in">int</span>,   <span class="hljs-comment"># the ids of objects in images. Size (number of images, 100)</span>
-}</code><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button></pre>
-                      </div>
-                    </li>
-                    <li>
-                      <p>The basic information of the images are stored in <a href="www.baidu.com"><strong>cric_objects_info.json</strong></a>.
-                        The structures of the file is as follows:</p>
-                      <div class="code-wrapper">
-                        <pre><code class="hljs perl">cric_objects_info =
-{
-    <span class="hljs-string">"image_id"</span>:  <span class="hljs-comment"># a string indicating the image id of Visual Genome</span>
-        {
-            <span class="hljs-string">"width"</span>:      <span class="hljs-keyword">int</span>,
-            <span class="hljs-string">"height"</span>:     <span class="hljs-keyword">int</span>,
-            <span class="hljs-string">"objectsNum"</span>: <span class="hljs-keyword">int</span>,
-            <span class="hljs-string">"index"</span>:      <span class="hljs-keyword">int</span>,  <span class="hljs-comment"># indicating the position of the image features in cric_object_features.h5</span>
-        }
-}</code><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button></pre>
-                      </div>
+                      style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h3>
+                      <ol>
+<li><p>The <a href=''><strong>create-210k-annotation files</strong></a> (create_210k_train.json, create_210k_val.json, create_210k_test.json) consist of a list of high-quality fine-labeled annotations where each item’s structure is as follows:</p>
+<pre><code>{
+    &quot;vid&quot;:          str,  # video id
+    &quot;ann_title&quot;:    str,  # Manually annotated title
+    &quot;ann_caption&quot;:  str,  # Manually annotated caption
+    &quot;raw_title&quot;:    str,  # Original uploaded title
+    &quot;tag&quot;:          list, # Tag list
+    &quot;category&quot;:     int,  # Video category
+}
+</code></pre>
+</li>
+<li><p>The <a href=''><strong>create-3m/10m-annotation files</strong></a> (create_3m_pretrain.json, create_10m_pretrain.json) consist of a list of web-scale weak-labeled annotations where each item’s structure is as follows:</p>
+<pre><code>{
+    &quot;vid&quot;:        str,  # video id
+    &quot;raw_title&quot;:  str,  # Original uploaded title
+    &quot;tag&quot;:        list, # Tag list
+}
+</code></pre>
+</li>
 
-                    </li>
-                  </ul>
-                  <p>For downloading our dataset, you should use your institutional email address to send an email to <a
-                      href="mailto:wangruiping@ict.ac.cn"> Prof. Ruiping Wang </a> and <a
-                      href="mailto:difei.gao@vipl.ict.ac.cn"> Dr. Difei Gao </a> to state your specific research
-                    purpose. When we receive your email, we will provide the download link to you.</p>
+</ol>
+<ol start='3' >
+<li>The <a href=''><strong>create-210k-feature files</strong></a>  and <a href=''><strong>create-3m/10m-feature files</strong></a> contain features extracted by the CLIP model.</li>
 
-                  <h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation<a
-                      class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#Evaluation"
-                      style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
-                  <p>The models are evaluated with two metrics, answer correctness and grounding correctness:</p>
-                  <div class="code-wrapper">
-                    <pre><code class="hljs ini"><span class="hljs-attr">final_score</span> = answer_correctness * grounding_correctness</code><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button></pre>
-                  </div>
+</ol>
+<p>Word clouds of different parts-of-speech in the CREATE datasets. The words for the first 250-word frequencies are plotted, with a bigger font size indicating a higher word frequency. The characteristics of two types of annotations (i.e., caption and title) can be intuitively represented through word clouds. (a)∼(c) the statistics of adjectives, nouns, and verbs in the captions of the CREATE dataset. (d)∼(f) the statistics of adjectives, nouns, and verbs in the titles of the CREATE dataset, respectively.</p>
+<img src="./img/word_cloud.png" style="max-width: 100%;margin: 0rem auto;box-shadow: none;">
 
-                  <h2 id="Citation"><a href="#Citation" class="headerlink" title="Citation"></a>Citation<a
-                      class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#Citation"
+<p>For downloading our dataset, you should use your institutional email address to send an email to <a href='mailto:bli@nlpr.ia.ac.cn'>Prof. Bing Li </a>and <a href='mailto:zhangziqi2017@ia.ac.cn'>Dr. Ziqi Zhang </a>to state your specific research purpose. When we receive your email, we will provide the download link to you.</p>
+
+                  <h2 id="Metric"><a href="#Metric" class="headerlink" title="Metric"></a>Metric<a
+                      class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#Metric"
                       style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
-                  <p>The CRIC dataset is released for research purpose only. By using the CRIC dataset, you are
-                    recommended to refer to the following paper: </p>
-                  <div class="code-wrapper">
-                    <pre><code class="hljs mipsasm">@article{gao2019two,
-  title={CRIC: A vqa dataset for compositional reasoning on vision and commonsense},
-  author={Gao, Difei and Wang, Ruiping and Shan, Shiguang and Chen, Xilin},
-  journal={arXiv preprint arXiv:1908.02962},
-  year={<span class="hljs-number">2019</span>}
-}</code><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button><button class="copy-btn copy-btn-dark" data-clipboard-snippet=""><i class="iconfont icon-copy"></i><span>Copy</span></button></pre>
-                  </div>
+                  <p>
+                    <br>ACTEr is Attractiveness-Consensus-based Title Evaluation metric. It evaluates the relevance and attractiveness of the video titles in a unified framework. The relevance is measured by calculating Chinese-character-wised similarity between contextual embeddings of the candidate and references. The attractiveness is realized by injecting multi-person consensus on the local attractiveness of the reference into Chinese characters’ weights.
+                    <img src="./img/acter_score.png" style="max-width: 100%;margin: 0rem auto;box-shadow: none;">
+                    Statistics and analyses of attractiveness consensus weighting. (a) attractiveness score curves for various annotation counts. (b) the average error of attractiveness scores for various annotations counts. (c) distribution of the number of attractiveness scores for each character.
+                    <img src="./img/acter_show.png" style="max-width: 50%;margin: 0rem auto;box-shadow: none;">
+                    Examples of the overall title scores judged by various metrics. Comparison of the consistency between several major automatic evaluation metrics and human evaluations. The upper portion is rule-based text-matching methods, and the lower portion is semantic-based text-matching methods.
+                    <img src="./img/acter_compare.png" style="max-width: 40%;margin: 0rem auto;box-shadow: none;">
+                  </p>
+
+                  The code can be viewed at <a href=''><strong>ACTEr</strong></a>
+
+
+
+                  <h2 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm<a
+                      class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#Algorithm"
+                      style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
+                  <p>
+                    <img src="./img/alwig_framework.png" style="max-width: 100%;margin: 0rem auto;box-shadow: none;">
+                    <br>ALWIG is a multi-modal ALignment WIth Generation network. It contains a tag-driven video-text alignment module and a GPT-based generation module to complete the tasks of video titling, captioning, and retrieval simultaneously.
+                    <img src="./img/alwig_compare.png" style="max-width: 100%;margin: 0rem auto;box-shadow: none;">
+                    <br>Experimental results of UniVL, OSCAR, and proposed ALWIG. All models are pre-trained on two web-scale weakly-labeled datasets (3M=CREATE3M, 10M=CREATE10M) and fine-labeled on CREATE210K for three tasks: video retrieval, titling, and captioning.
+                    <img src="./img/alwig_show.png" style="max-width: 100%;margin: 0rem auto;box-shadow: none;">
+                    <br>Visualizations of the results of text-video retrieval, video caption, and video title generation. For video titling, we use a green background for expressions related to the content of the video, and a yellow background for attractive expressions.
+
+                  </p>
+                  The code and model can be viewed at <a href=''><strong>ALWIG</strong></a>
 
                   <h2 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact<a
                       class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="#Contact"
                       style="font: 1em / 1 anchorjs-icons; padding-left: 0.375em;"></a></h2>
                   <ul>
                     <li>
-                      <p><a href="mailto:wangruiping@ict.ac.cn">Ruiping Wang</a>, Institute of Computing Technology,
-                        Chinese Academy of Sciences</p>
-
+                      <p><a href="mailto:zhangziqi2017@ia.ac.cn">Ziqi Zhang</a>, Institution of Automation, Chinese Academy of Sciences</p>
                     </li>
                     <li>
-                      <p><a href="mailto:difei.gao@vipl.ict.ac.cn">Difei Gao</a>, Institute of Computing Technology,
+                      <p><a href="mailto:bli@nlpr.ia.ac.cn">Bing Li</a>, Institution of Automation,
                         Chinese Academy of Sciences</p>
                     </li>
 
@@ -326,20 +284,20 @@
 
         <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn" style="padding-top: 0px;">
           <div id="toc" style="visibility: visible;">
-            <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Contentxxx</p>
+            <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Content</p>
             <div class="toc-body" id="toc-body">
               <ol class="tocbot-list ">
                 <li class="toc-list-item is-active-li"><a
-                    href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Overview"
-                    class="tocbot-link node-name--H2  tocbot-active-link">Overview</a></li>
+                    href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Dataset"
+                    class="tocbot-link node-name--H2  tocbot-active-link">Dataset</a></li>
                 <li class="toc-list-item"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Statistics"
                     class="tocbot-link node-name--H2 ">Statistics</a></li>
                 <li class="toc-list-item"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Annotations"
                     class="tocbot-link node-name--H2 ">Annotations</a></li>
-                <li class="toc-list-item"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Evaluation"
-                    class="tocbot-link node-name--H2 ">Evaluation</a></li>
-                <li class="toc-list-item"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Citation"
-                    class="tocbot-link node-name--H2 ">Citation</a></li>
+                <li class="toc-list-item"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Metric"
+                    class="tocbot-link node-name--H2 ">Metric</a></li>
+                <li class="toc-list-item"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Algorithm"
+                    class="tocbot-link node-name--H2 ">Algorithm</a></li>
                 <li class="toc-list-item"><a href="file:///C:/Users/86150/Desktop/CRIC_web/CRIC.html#Contact"
                     class="tocbot-link node-name--H2 ">Contact</a></li>
               </ol>
